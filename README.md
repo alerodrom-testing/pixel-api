@@ -22,3 +22,10 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+# To run the pixels-api, run the following commnads:
+
+* rails db:drop && rails db:create && rails db:migrate && rails db:seed
+# After preparte the enviroment, run the server:
+
+* rails server
