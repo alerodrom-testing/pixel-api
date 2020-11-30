@@ -1,5 +1,11 @@
 class UsersController < ApplicationController
-  before_action :authorized, only: [:auto_login]
+  before_action :authorized, only: [:auto_login, :create, :update, :destroy]
+	before_action :set_user, only: [:show, :update, :destroy]
+	
+  def index 
+    @users = User.all 
+    render json: @users 
+  end
 
   # REGISTER
   def create
@@ -10,7 +16,30 @@ class UsersController < ApplicationController
     else
       render json: { error: 'Invalid username or password' }
     end
-  end
+	end
+	
+	# UPDATE
+	def update
+		if @user.update(user_params) 
+      render json: { success: true } 
+    else 
+      render json: { success: false } 
+    end 
+	end 
+	
+	# SHOW
+  def show 
+    render json: @user
+	end 
+	
+	# DESTROY
+  def destroy 
+    if @user.destroy 
+      render json: { success: true } 
+    else 
+      render json: { success: false } 
+    end 
+  end 
 
   # LOGGING IN
   def login
@@ -28,6 +57,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+	# GET USER
+	def set_user 
+    @user = User.find(params[:id]) 
+  end 
 
   def user_params
     params.permit(:username, :password, :age)
