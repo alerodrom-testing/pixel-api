@@ -3,7 +3,7 @@ class PixelsController < ApplicationController
 	before_action :set_pixel, only: [:show, :update, :destroy]
 	
 	def index
-		debugger
+		# Get pixels by user_id
     @pixels = Pixel.where(params[:user_id])
     render json: @pixels 
   end
@@ -45,7 +45,7 @@ class PixelsController < ApplicationController
 
 	# GET pixel
 	def set_pixel
-		debugger
+		# Filter by user_id and pixel id
     @pixel = Pixel.find(params[:user_id], params[:id]) 
   end 
 
